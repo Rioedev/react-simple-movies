@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 // import { NavLink } from "react-router-dom";
-
+import "swiper/scss";
 import MovieList from "./components/movie/MovieList";
 import Banner from "./components/banner/Banner";
 
