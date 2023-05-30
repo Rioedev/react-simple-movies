@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom";
 import useSWR from "swr";
 import { apiKey, fetcher } from "../config";
+import { SwiperSlide, Swiper } from "swiper/react";
+import MovieCard from "../components/movie/MovieCard";
 
 // https://api.themoviedb.org/3/movie/movie_id?
 // https://api.themoviedb.org/3/movie/movie_id/credits?
@@ -52,6 +54,7 @@ const MovieDetailPage = () => {
       </p>
       <MovieCredits></MovieCredits>
       <MovieVideos></MovieVideos>
+      <MovieSimilar></MovieSimilar>
     </div>
   );
 };
@@ -110,7 +113,7 @@ function MovieVideos() {
                 title="10 Mac Tips I Regret Not Using Sooner"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
+                allowFullScreen
                 className="object-fill w-full h-full"
               ></iframe>
             </div>
@@ -120,6 +123,31 @@ function MovieVideos() {
     </div>
   );
 }
-// <iframe width="893" height="502" src="https://www.youtube.com/embed/9nv0n-Wwwkk" title="10 Mac Tips I Regret Not Using Sooner" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+function MovieSimilar() {
+  const { movieId } = useParams();
+  const { data } = useSWR(
+    `https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=${apiKey}`,
+    fetcher
+  );
+  if (!data) return null;
+  const { results } = data;
+  if (!results || results.length <= 0) return null;
+  return (
+    <div className="py-10">
+      <h2 className="mb-10 text-3xl font-medium">Similar movies</h2>
+      <div className="movie-list">
+        <Swiper grabCursor={"true"} spaceBetween={40} slidesPerView={"auto"}>
+          {results.length > 0 &&
+            results.map((item) => (
+              <SwiperSlide key={item.id}>
+                <MovieCard item={item}></MovieCard>
+              </SwiperSlide>
+            ))}
+        </Swiper>
+      </div>
+    </div>
+  );
+}
 
 export default MovieDetailPage;
