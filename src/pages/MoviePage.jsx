@@ -1,13 +1,30 @@
-import MovieList from "../components/movie/MovieList";
 import useSWR from "swr";
-import { fetcher } from "../config";
+import { apiKey, fetcher } from "../config";
 import MovieCard from "../components/movie/MovieCard";
+import useDebounce from "../hooks/useDebounce";
+import { useEffect, useState } from "react";
+
+// https://api.themoviedb.org/3/search/movie?
 
 const MoviePage = () => {
-  const { data, error, isLoading } = useSWR(
-    `https://api.themoviedb.org/3/movie/popular?api_key=dec64b88f14494e381f509f9f6660e07`,
-    fetcher
+  const [filter, setFilter] = useState("");
+  const [url, setUrl] = useState(
+    `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`
   );
+  const filterDebounce = useDebounce(filter, 500);
+  const handleFilterChange = (e) => {
+    setFilter(e.target.value);
+  };
+  const { data } = useSWR(url, fetcher);
+  useEffect(() => {
+    if (filterDebounce) {
+      setUrl(
+        `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${filterDebounce}`
+      );
+    } else {
+      setUrl(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`);
+    }
+  }, [filterDebounce]);
   const movies = data?.results || [];
   return (
     <div className="py-5 page-container">
@@ -15,11 +32,12 @@ const MoviePage = () => {
         <div className="flex-1">
           <input
             type="text"
-            className="w-full rounded-tl-lg rounded-bl-lg p-4 bg-slate-800 text-white outline-none"
+            className="w-full p-4 text-white rounded-tl-lg rounded-bl-lg outline-none bg-slate-800"
             placeholder="Type here to search ..."
+            onChange={handleFilterChange}
           />
         </div>
-        <button className="p-4 bg-primary rounded-tr-lg rounded-br-lg text-white">
+        <button className="p-4 text-white rounded-tr-lg rounded-br-lg bg-primary">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
