@@ -67,7 +67,7 @@ function MovieCredits() {
   const { cast } = data;
   if (!cast || cast.length <= 0) return null;
   return (
-    <>
+    <div className="mb-20">
       <h2 className="mb-10 text-3xl text-center">Casts</h2>
       <div className="grid grid-cols-4 gap-5 px-52">
         {cast.slice(0, 8).map((item) => (
@@ -81,7 +81,7 @@ function MovieCredits() {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 }
 
@@ -92,7 +92,33 @@ function MovieVideos() {
     fetcher
   );
   if (!data) return null;
-  return <div></div>;
+  const { results } = data;
+  if (!results || results.length <= 0) return null;
+  return (
+    <div>
+      <div className="flex flex-col gap-10">
+        {results.slice(0, 2).map((item) => (
+          <div key={item.id} className="">
+            <h3 className="inline-block p-3 mb-5 text-xl font-medium bg-secondary">
+              {item.name}
+            </h3>
+            <div key={item.id} className="w-full aspect-video">
+              <iframe
+                width="893"
+                height="502"
+                src={`https://www.youtube.com/embed/${item.key}`}
+                title="10 Mac Tips I Regret Not Using Sooner"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                className="object-fill w-full h-full"
+              ></iframe>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 // <iframe width="893" height="502" src="https://www.youtube.com/embed/9nv0n-Wwwkk" title="10 Mac Tips I Regret Not Using Sooner" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
