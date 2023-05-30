@@ -1,4 +1,3 @@
-import React from "react";
 import useSWR from "swr";
 import { fetcher } from "../../config";
 import { SwiperSlide, Swiper } from "swiper/react";
@@ -32,7 +31,7 @@ function BannerItem({ item }) {
       <img
         src={`https://image.tmdb.org/t/p/original/${poster_path}`}
         alt=""
-        className="object-cover w-full h-full rounded-lg"
+        className="object-contain w-full h-full rounded-lg"
       />
       <div className="absolute w-full text-white bottom-5 left-5">
         <h2 className="mb-5 text-3xl font-bold">{title}</h2>
