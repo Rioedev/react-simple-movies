@@ -6,7 +6,7 @@ import { apiKey, fetcher } from "../../config";
 // https://api.themoviedb.org/3/movie/now-playing?api_key=dec64b88f14494e381f509f9f6660e07
 
 const MovieList = ({ type = "now_playing" }) => {
-  const { data, error, isLoading } = useSWR(
+  const { data } = useSWR(
     `https://api.themoviedb.org/3/movie/${type}?api_key=${apiKey}`,
     fetcher
   );
