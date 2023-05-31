@@ -6,10 +6,13 @@ import { useEffect, useState } from "react";
 
 // https://api.themoviedb.org/3/search/movie?
 
+const pageCount = 5;
+
 const MoviePage = () => {
+  const [nextPage, setNextPage] = useState(1);
   const [filter, setFilter] = useState("");
   const [url, setUrl] = useState(
-    `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`
+    `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&page=${nextPage}`
   );
   const filterDebounce = useDebounce(filter, 500);
   const handleFilterChange = (e) => {
@@ -20,13 +23,16 @@ const MoviePage = () => {
   useEffect(() => {
     if (filterDebounce) {
       setUrl(
-        `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${filterDebounce}`
+        `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${filterDebounce}&page=${nextPage}`
       );
     } else {
-      setUrl(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`);
+      setUrl(
+        `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&page=${nextPage}`
+      );
     }
-  }, [filterDebounce]);
+  }, [filterDebounce, nextPage]);
   const movies = data?.results || [];
+  // const { page, total_pages } = data;
   return (
     <div className="py-5 page-container">
       <div className="flex mb-10">
@@ -66,7 +72,10 @@ const MoviePage = () => {
           ))}
       </div>
       <div className="flex items-center justify-center mt-10 gap-x-5">
-        <span className="cursor-pointer">
+        <span
+          onClick={() => setNextPage(nextPage + 1)}
+          className="cursor-pointer"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -82,13 +91,21 @@ const MoviePage = () => {
             />
           </svg>
         </span>
-        <span className="inline-block px-4 py-2 leading-none bg-white rounded-md cursor-pointer text-slate-900">
-          1
-        </span>
-        <span>2</span>
+        {new Array(pageCount).fill(0).map((item, index) => (
+          <span
+            className="inline-block px-4 py-2 leading-none bg-white rounded-md cursor-pointer text-slate-900"
+            onClick={() => setNextPage(index + 1)}
+          >
+            {index + 1}
+          </span>
+        ))}
+        {/* <span>2</span>
         <span>3</span>
-        <span>4</span>
-        <span className="cursor-pointer">
+        <span>4</span> */}
+        <span
+          onClick={() => setNextPage(nextPage + 1)}
+          className="cursor-pointer"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
