@@ -72,7 +72,7 @@ function MovieCredits() {
   return (
     <div className="mb-20">
       <h2 className="mb-10 text-3xl text-center">Casts</h2>
-      <div className="grid grid-cols-4 gap-5 px-52">
+      <div className="grid grid-cols-4 gap-5">
         {cast.slice(0, 8).map((item) => (
           <div className="cast-item" key={item.id}>
             <img

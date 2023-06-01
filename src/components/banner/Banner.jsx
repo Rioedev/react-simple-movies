@@ -1,10 +1,12 @@
 import useSWR from "swr";
-import { fetcher } from "../../config";
+import { apiKey, fetcher } from "../../config";
 import { SwiperSlide, Swiper } from "swiper/react";
+import Button from "../button/Button";
+import { useNavigate } from "react-router-dom";
 
 const Banner = () => {
-  const { data, error, isLoading } = useSWR(
-    `https://api.themoviedb.org/3/movie/upcoming?api_key=dec64b88f14494e381f509f9f6660e07`,
+  const { data } = useSWR(
+    `https://api.themoviedb.org/3/movie/upcoming?api_key=${apiKey}`,
     fetcher
   );
   const movies = data?.results || [];
@@ -24,7 +26,8 @@ const Banner = () => {
 };
 
 function BannerItem({ item }) {
-  const { title, poster_path } = item;
+  const { title, poster_path, id } = item;
+  const navigate = useNavigate();
   return (
     <div className="relative w-full h-full rounded-lg">
       <div className="absolute inset-0 rounded-lg overlay bg-gradient-to-t from-[rgba(0,0,0,0.5)] to-[rgba(0,0,0,0.5)]"></div>
@@ -46,9 +49,7 @@ function BannerItem({ item }) {
             Drama
           </span>
         </div>
-        <button className="px-6 py-3 font-medium text-white rounded-lg bg-primary">
-          Watch Now
-        </button>
+        <Button onClick={() => navigate(`/movie/${id}`)}>Watch now</Button>
       </div>
     </div>
   );
