@@ -36,3 +36,12 @@ body::-webkit-scrollbar-track {
   background-color: #0f172a;
 }
 // pagination
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  .selected {
+    @apply px-3 py-2 bg-white font-semibold rounded-md leading-none text-slate-900;
+  }
+}
