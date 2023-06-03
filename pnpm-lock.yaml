@@ -13,6 +13,9 @@ dependencies:
   react-dom:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
+  react-error-boundary:
+    specifier: ^4.0.9
+    version: 4.0.9(react@18.2.0)
   react-paginate:
     specifier: ^8.2.0
     version: 8.2.0(react@18.2.0)
@@ -262,6 +265,13 @@ packages:
       '@babel/core': 7.22.1
       '@babel/helper-plugin-utils': 7.21.5
     dev: true
+
+  /@babel/runtime@7.22.3:
+    resolution: {integrity: sha512-XsDuspWKLUsxwCp6r7EhsExHtYfbe5oAGQ19kqngTdCPUoPQzOPdUbD/pB9PJiwb2ptYKQDjSJT3R6dC+EPqfQ==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      regenerator-runtime: 0.13.11
+    dev: false
 
   /@babel/template@7.21.9:
     resolution: {integrity: sha512-MK0X5k8NKOuWRamiEfc3KEJiHMTkGZNUjzMipqCGDDc6ijRl/B7RGSKVGncu4Ro/HdyzzY6cmoXuKI2Gffk7vQ==}
@@ -2751,6 +2761,15 @@ packages:
       scheduler: 0.23.0
     dev: false
 
+  /react-error-boundary@4.0.9(react@18.2.0):
+    resolution: {integrity: sha512-f6DcHVdTDZmc9ixmRmuLDZpkdghYR/HKZdUzMLHD58s4cR2C4R6y4ktYztCosM6pyeK4/C8IofwqxgID25W6kw==}
+    peerDependencies:
+      react: '>=16.13.1'
+    dependencies:
+      '@babel/runtime': 7.22.3
+      react: 18.2.0
+    dev: false
+
   /react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
@@ -2856,6 +2875,10 @@ packages:
     dependencies:
       indent-string: 4.0.0
       strip-indent: 3.0.0
+    dev: false
+
+  /regenerator-runtime@0.13.11:
+    resolution: {integrity: sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==}
     dev: false
 
   /regexp.prototype.flags@1.5.0:
