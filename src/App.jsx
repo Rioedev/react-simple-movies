@@ -2,10 +2,10 @@ import { Fragment, lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import "swiper/scss";
 // import HomePage from "./pages/HomePage";
-import Main from "./components/layout/Main";
-import Banner from "./components/banner/Banner";
 // import MoviePage from "./pages/MoviePage";
 // import MovieDetailPage from "./pages/MovieDetailPage";
+import Main from "./components/layout/Main";
+import Banner from "./components/banner/Banner";
 
 // dynamic import
 const HomePage = lazy(() => import("./pages/HomePage"));
