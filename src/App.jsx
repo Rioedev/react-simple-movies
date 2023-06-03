@@ -6,6 +6,7 @@ import "swiper/scss";
 // import MovieDetailPage from "./pages/MovieDetailPage";
 import Main from "./components/layout/Main";
 import Banner from "./components/banner/Banner";
+import NotFoundPage from "./pages/NotFoundPage";
 
 // dynamic import
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -33,6 +34,7 @@ function App() {
               element={<MovieDetailPage></MovieDetailPage>}
             ></Route>
           </Route>
+          <Route path="*" element={<NotFoundPage></NotFoundPage>}></Route>
         </Routes>
       </Suspense>
     </Fragment>
