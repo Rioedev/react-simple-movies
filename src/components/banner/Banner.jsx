@@ -1,15 +1,12 @@
 import useSWR from "swr";
-import { apiKey, fetcher } from "../../config";
+import { fetcher, tmdbApi } from "../../config";
 import { SwiperSlide, Swiper } from "swiper/react";
 import Button from "../button/Button";
 import { useNavigate } from "react-router-dom";
 
 const Banner = () => {
-  const { data } = useSWR(
-    `https://api.themoviedb.org/3/movie/upcoming?api_key=${apiKey}`,
-    fetcher
-  );
-  const movies = data?.results || [];
+  const { data: movieData } = useSWR(tmdbApi.getMovieList("upcoming"), fetcher);
+  const movies = movieData?.results || [];
 
   return (
     <section className="banner h-[500px] page-container mb-10 overflow-hidden">
@@ -28,6 +25,7 @@ const Banner = () => {
 function BannerItem({ item }) {
   const { title, poster_path, id } = item;
   const navigate = useNavigate();
+
   return (
     <div className="relative w-full h-full rounded-lg">
       <div className="absolute inset-0 rounded-lg overlay bg-gradient-to-t from-[rgba(0,0,0,0.5)] to-[rgba(0,0,0,0.5)]"></div>
@@ -46,7 +44,7 @@ function BannerItem({ item }) {
             Adventure
           </span>
           <span className="px-4 py-2 border border-white rounded-md">
-            Drama
+            Science Fiction
           </span>
         </div>
         <Button onClick={() => navigate(`/movie/${id}`)}>Watch now</Button>
